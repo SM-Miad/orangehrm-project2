@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 const { POManager } = require('../pageObjects/POManager');
-require('dotenv').config();
+//require('dotenv').config();
 
 
 test('has title', async ({ page }) => {
