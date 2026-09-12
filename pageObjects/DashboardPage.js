@@ -5,6 +5,7 @@ class DashboardPage {
         this.page = page;
         this.adminMenu = page.getByRole('link', { name: 'Admin' });
         this.pimMenu = page.getByRole('link', { name: 'PIM' });
+        this.leaveMenu = page.getByRole('link', { name: 'Leave' });
         this.userDropdown = page.locator('.oxd-userdropdown-tab');
         this.logoutButton = page.getByRole('menuitem', { name: 'Logout' });
     
@@ -21,6 +22,10 @@ class DashboardPage {
     async logout() {
         await this.userDropdown.click();
         await this.logoutButton.click();
+    }
+
+    async goToLeavePage() {
+        await this.leaveMenu.click();
     }
 }
 

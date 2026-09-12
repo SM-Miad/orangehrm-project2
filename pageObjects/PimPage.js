@@ -34,7 +34,6 @@ class PimPage {
 
     async searchEmployee(employeeName) {
         await this.searchEmployeeName.fill(employeeName);
-        //await this.page.getByRole('option', { name: new RegExp( employeeName, 'i') }, { delay: 10000 }).click();
         await this.searchButton.click();
     }
 
@@ -46,11 +45,3 @@ class PimPage {
 
 module.exports = { PimPage };
 
-
-
-
-//Log in with valid admin credentials → 
-// navigate to PIM → add a new employee using randomly generated data → 
-//go to admin page → search for the newly added employee in the employee list →
-// verify the employee appears when searched in the employee list → 
-// log out.

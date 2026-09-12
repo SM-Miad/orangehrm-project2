@@ -2,6 +2,7 @@ const { LoginPage } = require('./LoginPage');
 const { DashboardPage } = require('./DashboardPage');
 const { PimPage } = require('./PimPage');
 const { AdminPage } = require('./AdminPage');
+const { LeavePage } = require('./LeavePage');
 
 class POManager {
     constructor(page) {
@@ -10,6 +11,7 @@ class POManager {
         this.dashboardPage = new DashboardPage(page);
         this.pimPage = new PimPage(page);
         this.adminPage = new AdminPage(page);
+        this.leavePage = new LeavePage(page);
     }
 
 
@@ -27,6 +29,10 @@ class POManager {
 
     getAdminPage() {
         return this.adminPage
+    }
+
+    getLeavePage() {
+        return this.leavePage;
     }
 }
 

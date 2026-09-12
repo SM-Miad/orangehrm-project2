@@ -8,14 +8,13 @@ test('search, edit, and verify user role/status', async ({ page }) => {
     const dashboardPage = poManager.getDashboardPage();
     const adminPage = poManager.getAdminPage();
 
-    //const username = 'Admin';
-    const username = 'Your_name_999';
-
-
     await loginPage.gotoLoginPage();
     await loginPage.login('Admin', 'admin123');
 
     await dashboardPage.goToAdmin();
+
+    const username = await adminPage.getRandomUsername();
+    console.log(`Randomly selected username: ${username}`);
 
     await adminPage.searchUser(username);
 
@@ -29,7 +28,6 @@ test('search, edit, and verify user role/status', async ({ page }) => {
 
     await page.reload();
 
-    //after relod steps: navigate to adminpage > search > verify
 
     await dashboardPage.goToAdmin();
     await adminPage.searchUser(username);

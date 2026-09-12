@@ -4,11 +4,9 @@ class AdminPage {
     constructor(page) {
         this.page = page;
         this.userManagementMenu = page.getByRole('link', { name: 'User Management' });
-        //this.userSearchInput = page.locator('label:has-text("Username")').locator('..').locator('input');
         this.userSearchInput = page.locator('div:has(> label:has-text("Username")) + div input');
         this.searchButton = page.getByRole('button', { name: 'Search' });
-        this.tableRows = page.locator('.oxd-table-body .oxd-table-card'); //,ay need to adjust the selector based on the actual table structure
-        //this.userRoleDropdown = page.locator('label:has-text("User Role")').locator('..').locator('div[role="combobox"]');
+        this.tableRows = page.locator('.oxd-table-body .oxd-table-card');
         this.userRoleDropdown = page.locator('div:has(> label:has-text("User Role")) + div .oxd-select-wrapper');
         this.userStatusDropdown = page.locator('div:has(> label:has-text("Status")) + div .oxd-select-wrapper');
         this.saveButton = page.getByRole('button', { name: 'Save' });
@@ -18,6 +16,34 @@ class AdminPage {
 
     async goToUserManagement() {
         await this.userManagementMenu.click();
+    }
+
+    async getRandomUsername() {
+        await expect(this.tableRows.first()).toBeVisible();
+
+    const rowCount = await this.tableRows.count();
+
+    const usernames = [];
+
+    for (let i = 0; i < rowCount; i++) {
+        const username = await this.tableRows
+            .nth(i)
+            .locator('.oxd-table-cell')
+            .nth(1)
+            .textContent();
+
+        if (username && username.trim() !== 'Admin') {
+            usernames.push(username.trim());
+        }
+    }
+
+    if (usernames.length === 0) {
+        throw new Error('No suitable username found in the User Management table.');
+    }
+
+    const randomIndex = Math.floor(Math.random() * usernames.length);
+
+    return usernames[randomIndex];
     }
 
     async searchUser(username) {
@@ -86,12 +112,3 @@ class AdminPage {
 
 module.exports = { AdminPage }
 
-
-
-//Log in with valid credentials →
- //navigate to Admin → 
- //search for a user by username → 
- //verify the results table shows the correct matching row(s) → e
- //dit that user’s role/status → 
- //save → 
- //refresh the page and verify the change persisted.
