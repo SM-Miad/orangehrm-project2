@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+const { test, expect } = require('@playwright/test');
 const { POManager } = require('../pageObjects/POManager');
 
 test('Login with invalid credentials', async ({ page }) => {

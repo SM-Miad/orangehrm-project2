@@ -30,7 +30,3 @@ class LoginPage {
 }
 
 module.exports = { LoginPage };
-
-
-//Attempt login with an invalid username/password combination. Verify the correct error message is displayed.
-//Invalid credentials
