@@ -1,0 +1,186 @@
+{
+  "info": {
+    "_postman_id": "e13d319a-9f3e-42ff-b96c-0b5aa8aa53c5",
+    "name": "Automation_assignment_v1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55408074",
+    "_collection_link": "https://go.postman.co/collection/55408074-e13d319a-9f3e-42ff-b96c-0b5aa8aa53c5?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Request_1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "let users;",
+              "pm.test(\"Response contains user data\", function () {",
+              "    users = pm.response.json();",
+              "    pm.expect(users).to.be.an(\"array\").and.not.empty;",
+              "});",
+              "",
+              "if (Array.isArray(users) && users.length > 0) {",
+              "    pm.test(\"Each user contains id, name, and email\", function () {",
+              "        users.forEach(function (user) {",
+              "            pm.expect(user).to.have.property(\"id\");",
+              "            pm.expect(user).to.have.property(\"name\");",
+              "            pm.expect(user).to.have.property(\"email\");",
+              "        });",
+              "    });",
+              "",
+              "    const selectedUser = users[0];",
+              "    pm.collectionVariables.set(\"userId\", selectedUser.id);",
+              "    pm.collectionVariables.set(\"userPhone\", selectedUser.phone || \"\");",
+              "    console.log(\"Stored userId:\", selectedUser.id);",
+              "    console.log(\"Stored userPhone:\", selectedUser.phone || \"\");",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Request_2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "let response;",
+              "pm.test(\"Response is valid JSON\", function () {",
+              "    response = pm.response.json();",
+              "    pm.expect(response).to.be.an(\"object\");",
+              "});",
+              "",
+              "const storedUserId = Number(pm.collectionVariables.get(\"userId\"));",
+              "",
+              "pm.test(\"userId was extracted from GET response\", function () {",
+              "    pm.expect(Number.isFinite(storedUserId)).to.eql(true);",
+              "    pm.expect(storedUserId).to.be.greaterThan(0);",
+              "});",
+              "",
+              "if (response && Number.isFinite(storedUserId)) {",
+              "    pm.test(\"Returned id matches stored userId\", function () {",
+              "        pm.expect(Number(response.id)).to.eql(storedUserId);",
+              "    });",
+              "",
+              "    pm.test(\"Phone field is not empty\", function () {",
+              "        pm.expect(response).to.have.property(\"phone\");",
+              "        pm.expect(response.phone).to.be.a(\"string\").and.not.empty;",
+              "    });",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"{{$randomFullName}}\",\r\n  \"email\": \"{{$randomEmail}}\",\r\n  \"phone\": \"{{userPhone}}\",\r\n  \"company\": {\r\n    \"name\": \"{{$randomCompanyName}}\"\r\n  }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/{{userId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "{{userId}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://jsonplaceholder.typicode.com"
+    },
+    {
+      "key": "userId",
+      "value": ""
+    },
+    {
+      "key": "userPhone",
+      "value": ""
+    }
+  ]
+}
