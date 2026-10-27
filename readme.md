@@ -59,73 +59,33 @@ BASE_URL=https://opensource-demo.orangehrmlive.com
 Project Stracture
 -----------------------------------------------------------------------------------------------------------------
 
-Project directory/
-|
-|
-|---tests/
-|	|
-|	|---add-employee-test.spec.js
-|	|
-|	|---admin-user-role.spec.js
-|	|
-|	|---leave-application.spec.js
-|	|
-|	|---login-test.spec.js
-|
-|	
-|---pageObjects/
-|	|
-|	|---AdminPage.js
-|	|
-|	|---DashboardPage.js
-|	|
-|	|---LeavePage.js
-|	|
-|	|---LoginPage.js
-|	|
-|	|---PimPage.js
-|	|
-|	|---POManager.js
-|
-|
-|---manual-test/
-|	|
-|	|---OrangeHRM Bug report.pdf
-|	|
-|	|---OrangeHRM_Manual_Test_Cases_Assignment.xlsx
-|	
-|
-|---api-automation/
-|	|
-|	|---Automation_assignment_v2.postman_collection.json
-|	
-|	
-|
-|---playwright-report/
-|	
-|
-|---allure-results/
-|	
-|
-|---api-automation/
-|	
-|
-|---allure-report/
-|	
-|
-|
-|
-|---playwright.config.js
-|	
-|
-|---package.json
-|	
-|
-|---.env
-|	
-|
-|---README.md
-
+```
+📦 Project directory/
+.github
+workflows/
+├─ allure-results/
+├─ api-automation
+│  └─ Automation_assignment_v2.postman_collection.json
+├─ manual-test
+│  ├─ OrangeHRM Bug report.pdf
+│  └─ OrangeHRM_Manual_Test_Cases_Assignment.xlsx
+├─ package-lock.json
+├─ package.json
+├─ pageObjects
+│  ├─ AdminPage.js
+│  ├─ DashboardPage.js
+│  ├─ LeavePage.js
+│  ├─ LoginPage.js
+│  ├─ POManager.js
+│  └─ PimPage.js
+├─ playwright.config.js
+├─ readme.md
+└─ tests
+   ├─ add-employee-test.spec.js
+   ├─ admin-user-role.spec.js
+   ├─ leave-application.spec.js
+   └─ login-test.spec.js
+```
 
 
 
